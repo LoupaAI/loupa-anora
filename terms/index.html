@@ -1,0 +1,117 @@
+<!doctype html><html lang="en" data-loupa-version="1792955175107"><head>
+<!-- LOUPA_CONSENT_START -->
+<style data-loupa-cc>
+#loupa-cc,#loupa-cc *{box-sizing:border-box!important;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif!important;letter-spacing:normal!important;text-transform:none!important}
+#loupa-cc{position:fixed!important;z-index:2147483646!important;left:16px;right:16px;bottom:16px;max-width:560px;margin:0 auto;background:#fff!important;color:#111!important;border:1px solid #111!important;border-radius:12px!important;padding:18px!important;box-shadow:0 8px 30px rgba(0,0,0,.18)!important;font-size:14px!important;line-height:1.45!important;text-align:left!important}
+#loupa-cc h2{margin:0 0 6px!important;font-size:16px!important;font-weight:600!important;color:#111!important;line-height:1.3!important}
+#loupa-cc p{margin:0 0 14px!important;color:#333!important;font-size:13px!important}
+#loupa-cc .lcc-row{display:flex!important;flex-wrap:wrap!important;gap:8px!important}
+#loupa-cc button.lcc-btn{flex:1 1 140px!important;min-height:42px!important;padding:10px 14px!important;border-radius:8px!important;border:1px solid #111!important;font-size:14px!important;font-weight:600!important;cursor:pointer!important;background:#fff!important;color:#111!important;margin:0!important;box-shadow:none!important;text-decoration:none!important}
+#loupa-cc button.lcc-btn.lcc-dark{background:#111!important;color:#fff!important}
+#loupa-cc button.lcc-btn:focus-visible,#loupa-cc button.lcc-sw:focus-visible{outline:2px solid #111!important;outline-offset:2px!important}
+#loupa-cc .lcc-item{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;padding:12px 0!important;border-top:1px solid #e5e5e5!important}
+#loupa-cc .lcc-item strong{display:block!important;font-size:14px!important;color:#111!important}
+#loupa-cc .lcc-item span{display:block!important;font-size:12px!important;color:#555!important}
+#loupa-cc button.lcc-sw{flex:none!important;position:relative!important;width:44px!important;height:26px!important;border-radius:13px!important;border:1px solid #111!important;background:#fff!important;cursor:pointer!important;padding:0!important;margin:0!important}
+#loupa-cc button.lcc-sw::after{content:""!important;position:absolute!important;top:3px!important;left:3px!important;width:18px!important;height:18px!important;border-radius:50%!important;background:#111!important;transition:left .15s!important}
+#loupa-cc button.lcc-sw[aria-checked="true"]{background:#111!important}
+#loupa-cc button.lcc-sw[aria-checked="true"]::after{left:21px!important;background:#fff!important}
+#loupa-cc button.lcc-sw[disabled]{opacity:.55!important;cursor:not-allowed!important}
+#loupa-cc-overlay{position:fixed!important;inset:0!important;z-index:2147483645!important;background:rgba(0,0,0,.45)!important}
+#loupa-cc.lcc-modal{top:50%!important;bottom:auto!important;transform:translateY(-50%)!important;max-height:calc(100vh - 32px)!important;overflow:auto!important}
+button[data-loupa-cookie-settings]{background:none!important;border:0!important;padding:0!important;margin:0!important;font:inherit!important;color:inherit!important;opacity:.75;cursor:pointer!important;text-decoration:none}
+button[data-loupa-cookie-settings]:hover{opacity:1;text-decoration:underline}
+</style>
+<script data-loupa-cc>
+(function(){
+  var SITE="9bf1dd67-f33b-4128-be1f-436848e5c034", VERSION=1, KEY='loupa_consent_'+SITE;
+  var state=null, ran={analytics:false,marketing:false}, subs={analytics:[],marketing:[]};
+  try{var raw=JSON.parse(localStorage.getItem(KEY)||'null');if(raw&&raw.v===VERSION)state=raw;}catch(e){}
+  function allowed(c){return !!(state&&state[c]===true);}
+  function gtag(){window.dataLayer=window.dataLayer||[];window.dataLayer.push(arguments);}
+  function googleConsent(mode){
+    gtag('consent',mode,{analytics_storage:allowed('analytics')?'granted':'denied',ad_storage:allowed('marketing')?'granted':'denied',ad_user_data:allowed('marketing')?'granted':'denied',ad_personalization:allowed('marketing')?'granted':'denied'});
+    if(!allowed('marketing')){gtag('set','allow_google_signals',false);gtag('set','allow_ad_personalization_signals',false);}
+  }
+  googleConsent('default');
+  function activate(c){
+    if(!allowed(c)||ran[c])return; ran[c]=true;
+    if(c==='marketing')googleConsent('update');
+    var list=document.querySelectorAll('script[type="text/plain"][data-loupa-consent="'+c+'"]');
+    for(var i=0;i<list.length;i++){var old=list[i],s=document.createElement('script');
+      for(var j=0;j<old.attributes.length;j++){var a=old.attributes[j];if(a.name!=='type'&&a.name!=='data-loupa-consent')s.setAttribute(a.name,a.value);}
+      s.setAttribute('data-loupa-consent-ran',c);
+      if(!old.src)s.text=old.text;
+      old.parentNode.replaceChild(s,old);}
+    var fns=subs[c];for(var k=0;k<fns.length;k++){try{fns[k]();}catch(e){}}
+  }
+  function blockDispatch(c){
+    var noop=function(){};
+    if(c==='marketing'){
+      try{if(window.fbq){window.fbq('consent','revoke');}}catch(e){}
+      try{if(window.ttq&&window.ttq.revokeConsent)window.ttq.revokeConsent();}catch(e){}
+      ['fbq','_fbq','pintrk','ttq'].forEach(function(n){try{window[n]=noop;}catch(e){}});
+    }
+    if(c==='analytics'){try{localStorage.removeItem('loupa_vid');sessionStorage.removeItem('loupa_vid_s');}catch(e){}}
+    googleConsent('update');
+  }
+  function save(next){
+    var prev=state; state={v:VERSION,necessary:true,analytics:!!next.analytics,marketing:!!next.marketing,ts:new Date().toISOString()};
+    try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}
+    var withdrawn=prev&&((prev.analytics&&!state.analytics)||(prev.marketing&&!state.marketing));
+    if(withdrawn){
+      if(prev.analytics&&!state.analytics)blockDispatch('analytics');
+      if(prev.marketing&&!state.marketing)blockDispatch('marketing');
+      if(ran.analytics||ran.marketing){location.reload();return;}
+    }
+    activate('analytics');activate('marketing');
+  }
+  window.LoupaConsent={version:VERSION,allowed:allowed,
+    on:function(c,fn){if(!subs[c])return;subs[c].push(fn);if(ran[c]){try{fn();}catch(e){}}},
+    open:function(){openPrefs();}};
+
+  var box=null,overlay=null,lastFocus=null;
+  function close(){if(box){box.remove();box=null;}if(overlay){overlay.remove();overlay=null;}document.removeEventListener('keydown',onKey,true);if(lastFocus&&lastFocus.focus)try{lastFocus.focus();}catch(e){}}
+  function onKey(e){if(e.key==='Escape'&&box&&box.classList.contains('lcc-modal')){e.preventDefault();close();if(!state)showBanner();}
+    if(e.key==='Tab'&&box&&box.classList.contains('lcc-modal')){var f=box.querySelectorAll('button:not([disabled])');if(!f.length)return;var a=f[0],z=f[f.length-1];
+      if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus();}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus();}}}
+  function el(html){var d=document.createElement('div');d.id='loupa-cc';d.setAttribute('role','dialog');d.setAttribute('aria-labelledby','loupa-cc-t');d.innerHTML=html;return d;}
+  function showBanner(){
+    close();
+    box=el('<h2 id="loupa-cc-t">We value your privacy</h2><p>We use necessary cookies to run this store. With your permission we also use analytics and marketing cookies to understand visits and show relevant ads.</p><div class="lcc-row"><button type="button" class="lcc-btn lcc-dark" data-a="all">Accept All</button><button type="button" class="lcc-btn lcc-dark" data-a="none">Reject All</button><button type="button" class="lcc-btn" data-a="prefs">Manage Preferences</button></div>');
+    box.setAttribute('aria-modal','false');
+    box.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var a=b.getAttribute('data-a');
+      if(a==='all'){close();save({analytics:true,marketing:true});}else if(a==='none'){close();save({analytics:false,marketing:false});}else if(a==='prefs'){openPrefs();}});
+    document.body.appendChild(box);
+  }
+  function sw(id,label,desc,on,locked){return '<div class="lcc-item"><div><strong id="'+id+'-l">'+label+'</strong><span>'+desc+'</span></div><button type="button" class="lcc-sw" role="switch" aria-labelledby="'+id+'-l" data-c="'+id+'" aria-checked="'+(on?'true':'false')+'"'+(locked?' disabled':'')+'></button></div>';}
+  function openPrefs(){
+    var focusBefore=document.activeElement; close(); lastFocus=focusBefore;
+    overlay=document.createElement('div');overlay.id='loupa-cc-overlay';document.body.appendChild(overlay);
+    box=el('<h2 id="loupa-cc-t">Cookie preferences</h2><p>Choose which cookies this store may use. You can change this anytime via Cookie Settings in the footer.</p>'
+      +sw('necessary','Necessary','Required for the store, cart and checkout to work.',true,true)
+      +sw('analytics','Analytics','Helps us understand how visitors use this store.',allowed('analytics'),false)
+      +sw('marketing','Marketing','Used by advertising partners to measure and personalize ads.',allowed('marketing'),false)
+      +'<div class="lcc-row" style="margin-top:14px"><button type="button" class="lcc-btn" data-a="none">Reject All</button><button type="button" class="lcc-btn lcc-dark" data-a="save">Save preferences</button></div>');
+    box.classList.add('lcc-modal');box.setAttribute('aria-modal','true');
+    box.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;
+      if(b.classList.contains('lcc-sw')){if(!b.disabled)b.setAttribute('aria-checked',b.getAttribute('aria-checked')==='true'?'false':'true');return;}
+      var a=b.getAttribute('data-a');
+      if(a==='none'){close();save({analytics:false,marketing:false});}
+      if(a==='save'){var g=function(c){var s=box.querySelector('[data-c="'+c+'"]');return s&&s.getAttribute('aria-checked')==='true';};var n={analytics:g('analytics'),marketing:g('marketing')};close();save(n);}});
+    overlay.addEventListener('click',function(){close();if(!state)showBanner();});
+    document.body.appendChild(box);document.addEventListener('keydown',onKey,true);
+    var first=box.querySelector('button:not([disabled])');if(first)first.focus();
+  }
+  document.addEventListener('click',function(e){var t=e.target&&e.target.closest?e.target.closest('[data-loupa-cookie-settings]'):null;if(t){e.preventDefault();openPrefs();}},true);
+  function boot(){activate('analytics');activate('marketing');if(!state)showBanner();}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+})();
+</script>
+<!-- LOUPA_CONSENT_END --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Cache-Control" content="no-cache"><title>Terms of service · Anora</title><style>
+*{box-sizing:border-box}body{margin:0;background:#fff;color:#121212;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased}
+main{max-width:760px;margin:0 auto;padding:56px 20px 80px}h1.lp-title{font-size:32px;line-height:1.2;margin:0 0 28px;font-weight:700}
+.lp-body{font-size:16px;overflow-wrap:anywhere}.lp-body h1{font-size:26px;margin:32px 0 12px}.lp-body h2{font-size:21px;margin:28px 0 10px}.lp-body h3{font-size:18px;margin:24px 0 8px}
+.lp-body p{margin:0 0 14px}.lp-body ul,.lp-body ol{margin:0 0 14px;padding-left:22px}.lp-body a{color:#0072FF;text-decoration:underline}
+@media(max-width:640px){main{padding:36px 18px 60px}h1.lp-title{font-size:26px}}
+</style></head><body data-loupa-version="1792955175107"><main><h1 class="lp-title">Terms of service</h1><div class="lp-body"><h2>Allgemeine Geschäftsbedingungen</h2><ul><li>§ 1 Geltungsbereich und Anbieter</li><li>§ 2 Vertragsschluss</li><li>§ 3 Preise</li><li>§ 4 Zahlungsbedingungen; Verzug</li><li>§ 5 Aufrechnung/Zurückbehaltungsrecht</li><li>§ 6 Lieferung</li><li>§ 7 Widerrufsrecht</li><li>§ 8 Gewährleistung</li><li>§ 9 Haftung</li><li>§ 10 Urheber- und Nutzungsrechte</li><li>§ 11 Alternative Streitbeilegung</li><li>§ 12 Schlussbestimmungen</li></ul><h3>§ 1 Geltungsbereich und Anbieter</h3><p>(1) Diese Allgemeinen Geschäftsbedingungen gelten für alle Bestellungen, die Sie im Online-Shop von uns tätigen.</p><p><strong>Annalena Marks</strong></p><p>Kapellenberg 36</p><p>86415 Mering</p><p>Deutschland</p><p>StNr: 10224813711</p><p>Kontakt</p><p>E-Mail: annalena.marks@yahoo.de</p><p>(2) Das Warenangebot in unserem Online-Shop richtet sich ausschließlich an Käufer, die das 18. Lebensjahr vollendet haben.</p><p>(3) Unsere Lieferungen, Leistungen und Angebote erfolgen ausschließlich auf der Grundlage dieser Allgemeinen Geschäftsbedingungen. Die Allgemeinen Geschäftsbedingungen gelten gegenüber Unternehmen somit auch für alle künftigen Geschäftsbeziehungen, auch wenn sie nicht nochmals ausdrücklich vereinbart werden. Der Einbeziehung von Allgemeinen Geschäftsbedingungen eines Kunden, die unseren Allgemeinen Geschäftsbedingungen widersprechen, wird schon jetzt widersprochen.</p><p>(4) Vertragssprache ist ausschließlich deutsch.</p><p>(5) Sie können die derzeit gültigen Allgemeinen Geschäftsbedingungen auf unserer Website "<a href="https://shop.tentary.com/legal/956770326/tos" target="_blank" rel="noopener noreferrer">https://shop.tentary.com/legal/956770326/tos</a>" abrufen und ausdrucken. Eine Speicherung des Vertragstextes erfolgt nicht.</p><h3>§ 2 Vertragsschluss</h3><p>(1) Die Warenpräsentation im Online-Shop stellt keinen verbindlichen Antrag auf den Abschluss eines Kaufvertrages dar. Vielmehr handelt es sich um eine unverbindliche Aufforderung, im Online-Shop Waren zu bestellen.</p><p>(2) Mit Anklicken des Buttons [„Zahlungspflichtig bestellen“, „Mit PayPal zahlen“] geben Sie ein verbindliches Kaufangebot ab (§ 145 BGB). Unmittelbar vor Abgabe dieser Bestellung können Sie die Bestellung noch einmal überprüfen und ggf. korrigieren.</p><p>(3) Erst durch Freischalten des Inhalts bzw. Bereitstellen eines Links kommt der Vertrag zustande.</p><h3>§ 3 Preise</h3><p>Die auf den Produktseiten genannten Preise enthalten die gesetzliche Mehrwertsteuer und sonstige Preisbestandteile.</p><h3>§ 4 Zahlungsbedingungen; Verzug</h3><p>(1) Die Zahlung erfolgt wahlweise per Kreditkarte, Apple Pay, Google Pay, Klarna, EPS, giropay, PayPal oder Lastschrift.</p><p>(2) Die Auswahl der jeweils verfügbaren Bezahlmethoden obliegt uns. Wir behalten uns insbesondere vor, Ihnen für die Bezahlung nur ausgewählte Bezahlmethoden anzubieten, beispielweise zur Absicherung unseres Kreditrisikos nur Vorkasse.</p><p>(3) Bei Zahlung per Kreditkarte wird der Kaufpreis zum Zeitpunkt der Bestellung auf Ihrer Kreditkarte reserviert (Autorisierung). Die tatsächliche Belastung Ihres Kreditkartenkontos erfolgt in dem Zeitpunkt, in dem wir die Ware an Sie versenden.</p><p>(4) Bei der Bezahlung mit PayPal werden Sie im Bestellprozess auf die Webseite des Online-Anbieters PayPal weitergeleitet. Um den Rechnungsbetrag über PayPal bezahlen zu können, müssen Sie dort registriert sein bzw. sich erst registrieren, mit Ihren Zugangsdaten legitimieren und die Zahlungsanweisung an uns bestätigen. Nach Abgabe der Bestellung im Shop fordern wir PayPal zur Einleitung der Zahlungstransaktion auf. Weitere Hinweise erhalten Sie beim Bestellvorgang. Die Zahlungstransaktion wird durch PayPal unmittelbar danach automatisch durchgeführt.</p><p>(5) Bei Zahlung per Lastschrift haben Sie ggf. jene Kosten zu tragen, die infolge einer Rückbuchung einer Zahlungstransaktion mangels Kontodeckung oder aufgrund von Ihnen falsch übermittelter Daten der Bankverbindung entstehen.</p><h3>§ 5 Aufrechnung/Zurückbehaltungsrecht</h3><p>(1) Ein Recht zur Aufrechnung steht Ihnen nur dann zu, wenn Ihre Gegenforderung rechtskräftig festgestellt worden ist, von uns nicht bestritten oder anerkannt wird oder in einem engen synallagmatischen Verhältnis zu unserer Forderung steht.</p><p>(2) Sie können ein Zurückbehaltungsrecht nur ausüben, soweit Ihre Gegenforderung auf demselben Vertragsverhältnis beruht.</p><h3>§ 6 Lieferung</h3><p>(1) Sofern nicht anders vereinbart, erfolgt die Lieferung der Ware durch das Bereitstellen eines Links. Dieser kann von Ihnen betätigt werden und startet den Download auf das von Ihnen gewählte Speichermedium.</p><p>(2) Es liegt im Verantwortungsbereich des Kunden, geeignete Software bereitzuhalten, die ein ordnungsgemäßes Öffnen, Bearbeiten und Ausdrucken der Dateien und Inhalte ermöglicht.</p><h3>§ 7 Widerrufsrecht</h3><p>Verbrauchern steht grundsätzlich ein Widerrufsrecht zu.</p><p>Nähere Informationen zum Widerrufsrecht ergeben sich aus der Widerrufsbelehrung des Verkäufers.</p><p>Das Widerrufsrecht gilt nicht für Verbraucher, die zum Zeitpunkt des Vertragsschlusses keinem Mitgliedstaat der Europäischen Union angehören und deren alleiniger Wohnsitz und Lieferadresse zum Zeitpunkt des Vertragsschlusses außerhalb der Europäischen Union liegen.</p><h3>§ 8 Gewährleistung</h3><p>(1) Soweit nicht ausdrücklich etwas anderes vereinbart ist, richten sich Ihre Gewährleistungsansprüche nach den gesetzlichen Bestimmungen des Kaufrechts (§§ 433 ff. BGB).</p><p>(2) Wir haften nur für Ansprüche aufgrund von Schäden aus der Verletzung des Lebens, des Körpers oder der Gesundheit oder aus der Verletzung einer wesentlichen Vertragspflicht, deren Erfüllung die ordnungsgemäße Durchführung des Vertrags überhaupt erst ermöglicht und auf deren Einhaltung der Vertragspartner regelmäßig vertrauen darf (Kardinalpflicht) sowie für Ansprüche aufgrund von sonstigen Schäden, die auf einer vorsätzlichen oder grob fahrlässigen Pflichtverletzung des Verwenders oder seiner Erfüllungsgehilfen beruhen.</p><p>(3) Wenn Sie Unternehmer im Sinne des § 14 BGB sind, gelten die gesetzlichen Bestimmungen mit folgenden Modifikationen:</p><p>- Für die Beschaffenheit der Ware sind nur unsere eigenen Angaben und die Produktbeschreibung des Herstellers verbindlich, nicht jedoch öffentliche Anpreisungen und Äußerungen und sonstige Werbung des Herstellers.</p><p>- Sie sind verpflichtet, die Ware unverzüglich und mit der gebotenen Sorgfalt auf Qualitäts- und Mengenabweichungen zu untersuchen und uns offensichtliche Mängel binnen 7 Tagen ab Empfang der Ware anzuzeigen. Zur Fristwahrung reicht die rechtzeitige Absendung. Dies gilt auch für später festgestellte verdeckte Mängel ab Entdeckung. Bei Verletzung der Untersuchungs- und Rügepflicht ist die Geltendmachung der Gewährleistungsansprüche ausgeschlossen.</p><p>- Bei Mängeln leisten wir nach unserer Wahl Gewähr durch Nachbesserung oder Ersatzlieferung (Nacherfüllung). Im Falle der Nachbesserung müssen wir nicht die erhöhten Kosten tragen, die durch die Verbringung der Ware an einen anderen Ort als den Erfüllungsort entstehen, sofern die Verbringung nicht dem bestimmungsgemäßen Gebrauch der Ware entspricht.</p><p>- Schlägt die Nacherfüllung zweimal fehl, können Sie nach Ihrer Wahl Minderung verlangen oder vom Vertrag zurücktreten.</p><p>- Die Gewährleistungsfrist beträgt ein Jahr ab Ablieferung der Ware.</p><h3>§ 9 Haftung</h3><p>(1) Unbeschränkte Haftung: Wir haften unbeschränkt für Vorsatz und grobe Fahrlässigkeit sowie nach Maßgabe des Produkthaftungsgesetzes. Für leichte Fahrlässigkeit haften wir bei Schäden aus der Verletzung des Lebens, des Körpers und der Gesundheit von Personen.</p><p>(2) Im Übrigen gilt folgende beschränkte Haftung: Bei leichter Fahrlässigkeit haften wir nur im Falle der Verletzung einer wesentlichen Vertragspflicht, deren Erfüllung die ordnungsgemäße Durchführung des Vertrags überhaupt erst ermöglicht und auf deren Einhaltung Sie regelmäßig vertrauen dürfen (Kardinalpflicht). Die Haftung für leichte Fahrlässigkeit ist der Höhe nach beschränkt auf die bei Vertragsschluss vorhersehbaren Schäden, mit deren Entstehung typischerweise gerechnet werden muss. Diese Haftungsbeschränkung gilt auch zugunsten unserer Erfüllungsgehilfen.</p><h3>§ 10 Urheber- und Nutzungsrechte</h3><p>(1) Alle durch den Verkäufer bereitgestellten digitalen Inhalte sind urheberrechtlich geschützt.</p><p>(2) Der Kunde erwirbt ein zeitlich unbegrenztes, einfaches, nicht übertragbares Nutzungsrecht ausschließlich für den nicht kommerziellen Gebrauch. Dem Kunden werden keine Verwertungsrechte eingeräumt. Insbesondere darf er die erworbenen Titel weder digital noch in gedruckter Form, vollständig oder auszugsweise verbreiten (§ 17 UrhG), öffentlich zugänglich machen (§ 19a UrhG) oder in anderer Form an Dritte weitergeben. Das Recht zur Vervielfältigung (§ 16 UrhG) ist auf Vervielfältigungshandlungen beschränkt, die ausschließlich dem eigenen Gebrauch dienen.</p><p>(3) Die Einräumung der Nutzungsrechte durch den Verkäufer steht unter der aufschiebenden Bedingung der vollständigen Kaufpreiszahlung.</p><p>(4) Der Nutzer ist nicht berechtigt, Urheberrechtsvermerke, Markenzeichen oder andere Rechtsvorbehalte von den Waren zu entfernen.</p><p>(5) Der Verkäufer ist berechtigt, zum Download bereitgestellte digitale Inhalte mit sichtbaren und unsichtbaren Kennzeichnungen individuell zu personalisieren, um die Ermittlung und rechtliche Verfolgung des ursprünglichen Bestellers im Falle einer missbräuchlichen Nutzung zu ermöglichen.</p><p>(6) Im Fall einer unberechtigten Nutzung der digitalen Inhalte durch den Käufer oder einen Dritten verpflichtet sich der Käufer zur Zahlung einer von uns nach billigem Ermessen festzusetzenden und im Streitfall vom zuständigen Gericht zu überprüfenden Vertragsstrafe pro Verletzungshandlung.</p><h3>§ 11 Alternative Streitbeilegung</h3><p>(1) Wir sind bemüht, eventuelle Meinungsverschiedenheiten aus unserem Vertrag einvernehmlich beizulegen. Darüber hinaus sind wir zu einer Teilnahme an einem Schlichtungsverfahren nicht verpflichtet und können Ihnen die Teilnahme an einem solchen Verfahren leider auch nicht anbieten.</p><h3>§ 12 Schlussbestimmungen</h3><p>(1) Sollten eine oder mehrere Bestimmungen dieser AGB unwirksam sein oder werden, wird dadurch die Wirksamkeit der anderen Bestimmungen im Übrigen nicht berührt.</p><p>(2) Auf Verträge zwischen uns und Ihnen ist ausschließlich deutsches Recht anwendbar unter Ausschluss der Bestimmungen der United Nations Convention on Contracts for the International Sale of Goods (CISG, „UNKaufrecht“). Zwingende, verbraucherrechtliche Bestimmungen des Landes, in dem Sie sich gewöhnlich aufhalten, bleiben von der Rechtswahl unberührt (insbesondere im Hinblick auf den Vertragsschluss und das Gewährleistungsrecht).</p><p>(3) Sind Sie Kaufmann, juristische Person des öffentlichen Rechts oder öffentlichrechtliches Sondervermögen, so ist unser Geschäftssitz Gerichtsstand für alle Streitigkeiten aus oder im Zusammenhang mit Verträgen zwischen uns und Ihnen.</p><p>Stand: Juli 2025</p><p>AGB beruht auf einem Muster von: HÄRTING Rechtsanwälte, <a href="https://www.haerting.de" target="_blank" rel="noopener noreferrer">www.haerting.de</a>, vertragstexte@haerting.de</p><p>Chausseestraße 13, 10115 Berlin, Tel. (030) 28 30 57 40, Fax (030) 28 30 57 4</p></div></main><footer data-loupa-cc-footer style="text-align:center;padding:16px;font-size:13px"><button type="button" data-loupa-cookie-settings>Cookie Settings</button></footer></body></html>
